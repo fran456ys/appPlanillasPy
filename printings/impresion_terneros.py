@@ -2,6 +2,7 @@ import io
 import os
 import platform
 import subprocess
+import tempfile
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
