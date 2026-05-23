@@ -18,7 +18,7 @@ MinVersion=10.0
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "Crear ícono en el escritorio"; GroupDescription: "Íconos adicionales:"; Flags: checked
+Name: "desktopicon"; Description: "Crear ícono en el escritorio"; GroupDescription: "Íconos adicionales:"
 
 [Files]
 Source: "dist\windows\appPlanillas.exe"; DestDir: "{app}"; Flags: ignoreversion
