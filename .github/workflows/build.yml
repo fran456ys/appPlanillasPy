@@ -18,6 +18,16 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt pyinstaller flet-desktop
 
+      - name: Descargar cliente Flet desktop (Windows)
+        shell: pwsh
+        run: |
+          $version = python -c "import flet_desktop.version; print(flet_desktop.version.version)"
+          $pkgdir  = python -c "import flet_desktop, os; print(os.path.dirname(flet_desktop.__file__))"
+          $appdir  = Join-Path $pkgdir "app"
+          New-Item -ItemType Directory -Force -Path $appdir | Out-Null
+          $url = "https://github.com/flet-dev/flet/releases/download/v$version/flet-windows.zip"
+          Invoke-WebRequest -Uri $url -OutFile (Join-Path $appdir "flet-windows.zip")
+
       - name: Construir ejecutable
         run: pyinstaller appPlanillas.spec --distpath dist/windows
 

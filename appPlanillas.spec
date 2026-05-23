@@ -7,6 +7,16 @@ block_cipher = None
 # Finds site-packages regardless of Python version or OS
 _sp = Path(sysconfig.get_paths()["purelib"])
 
+# Include flet_desktop/app/ if it was pre-populated (e.g. in CI) so the
+# Flutter runtime is bundled and the exe needs no internet connection on
+# first launch.
+_fd_app = _sp / "flet_desktop" / "app"
+_fd_app_datas = (
+    [(str(_fd_app), "flet_desktop/app")]
+    if _fd_app.exists() and any(_fd_app.iterdir())
+    else []
+)
+
 a = Analysis(
     ["main.py"],
     pathex=["."],
@@ -19,6 +29,7 @@ a = Analysis(
          "flet/controls/material"),
         (str(_sp / "flet/controls/cupertino/cupertino_icons.json"),
          "flet/controls/cupertino"),
+        *_fd_app_datas,
     ],
     hiddenimports=[
         "flet",
