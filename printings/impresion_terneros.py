@@ -15,8 +15,11 @@ from entities.ternero import Ternero
 PDF_WIDTH_MM = 160
 PDF_HEIGHT_MM = 260
 PDF_IMG_Y_OFFSET = 10
-TMP_PDF_NAME = "planillas_terneros.pdf"
 TMP_DELETE_DELAY_S = 120
+
+
+def _tmp_pdf_path() -> str:
+    return os.path.join(tempfile.gettempdir(), "planillas_terneros.pdf")
 
 # PNG compress_level=1 is ~10x faster than default (6) with ~20% larger output —
 # acceptable for a temporary print file that gets deleted in 2 minutes.
@@ -73,9 +76,10 @@ def _ensamblar_e_imprimir(paginas: list[bytes]) -> None:
             h=PDF_HEIGHT_MM - PDF_IMG_Y_OFFSET,
         )
 
-    pdf.output(TMP_PDF_NAME)
-    threading.Thread(target=_auto_delete, args=(TMP_PDF_NAME,), daemon=True).start()
-    _imprimir_pdf(TMP_PDF_NAME)
+    path = _tmp_pdf_path()
+    pdf.output(path)
+    threading.Thread(target=_auto_delete, args=(path,), daemon=True).start()
+    _imprimir_pdf(path)
 
 
 def _imprimir_pdf(path: str) -> None:
