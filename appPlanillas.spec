@@ -23,6 +23,9 @@ a = Analysis(
     hiddenimports=[
         "flet",
         "flet.controls",
+        "flet_desktop",
+        "flet_desktop.version",
+        "flet.utils",
         "PIL",
         "PIL.Image",
         "PIL.ImageDraw",
@@ -34,7 +37,7 @@ a = Analysis(
     ],
     hookspath=[],
     hooksconfig={},
-    runtime_hooks=[],
+    runtime_hooks=["hooks/runtime_hook_builtins.py"],
     excludes=[],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,

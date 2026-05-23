@@ -16,7 +16,7 @@ jobs:
           python-version: "3.13"
 
       - name: Instalar dependencias
-        run: pip install -r requirements.txt pyinstaller
+        run: pip install -r requirements.txt pyinstaller flet-desktop
 
       - name: Construir ejecutable
         run: pyinstaller appPlanillas.spec --distpath dist/windows
@@ -45,7 +45,7 @@ jobs:
         run: sudo apt-get install -y libgtk-3-dev libglib2.0-dev
 
       - name: Instalar dependencias Python
-        run: pip install -r requirements.txt pyinstaller
+        run: pip install -r requirements.txt pyinstaller flet-desktop
 
       - name: Construir ejecutable
         run: pyinstaller appPlanillas.spec --distpath dist/linux
